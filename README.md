@@ -4,4 +4,24 @@ Created At 2017.11.06
 
 step1：virtualenv.md
 
-step2：
+step2：项目结构
+webapp/                  <-- 根目录
+    +- v_env/            <-- 虚拟环境目录
+    +- backup/           <-- 备份目录
+    +- conf/             <-- 配置文件
+    +- dist/             <-- 打包目录
+    +- script/           <-- 脚本工具
+    +- model/            <-- ORM 映射
+    +- static/           <-- 存放静态文件
+    +- templates/        <-- 存放模板文件
+    +- uploads/          <-- 上传文件存储
+    +- util/             <-- 自定义工具文件
+    +- app1/             <-- 项目子系统1
+    +- app2/             <-- 项目子系统2
+    +- ……
+    +- LICENSE           <-- 代码LICENSE
+    +- README.md
+    +- virtualenv.md
+    +- .gitignore        <-- git忽略配置文件
+
+step3：db接口，config文件读取
