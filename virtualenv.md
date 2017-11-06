@@ -23,6 +23,6 @@ Windows系统，使用命令v_env\Scripts\activate（不包含source）来 激�
 ### 停止使用虚拟环境 ###
 执行命令：deactivate
 
-廖雪峰　[https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001432712108300322c61f256c74803b43bfd65c6f8d0d0000]
+廖雪峰　[](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001432712108300322c61f256c74803b43bfd65c6f8d0d0000)
 
-CSDN　[http://blog.csdn.net/geekun/article/details/51325383]
+CSDN　[](http://blog.csdn.net/geekun/article/details/51325383)
