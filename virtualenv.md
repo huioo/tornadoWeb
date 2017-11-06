@@ -10,7 +10,7 @@
 > virtualenv模块创建虚拟环境：
 </br>$ virtualenv v_env Or $ python -m virtualenv v_env
 
-** 注意 ** 如果你的系统安装了多个Python版本，需要指定virtualenv使用的版本。
+**注意** 如果你的系统安装了多个Python版本，需要指定virtualenv使用的版本。
 例如，命令 virtualenv ll_env 后加 -p D:\Python27\python.exe venv27 或 --python=python3创建一个使用Python 3的虚拟环境。
 
 ### 激活虚拟环境 ###
