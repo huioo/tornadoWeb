@@ -1,8 +1,8 @@
 ## 建立虚拟环境
-    如果你使用的是Python 3，可使用如下命令来创建虚拟环境：
+如果你使用的是Python 3，可使用如下命令来创建虚拟环境：
     $ python -m venv ll_env
 
-    不能使用模块venv，可安装 virtualenv 包：
+不能使用模块venv，可安装 virtualenv 包：
     $ pip install --user virtualenv
 
 在终端中切换到目录learning_log，并像下面这样创建一个虚拟环境：
