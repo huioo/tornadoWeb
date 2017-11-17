@@ -41,48 +41,12 @@ class BasePageHandler(tornado.web.RequestHandler):
         #     except:
         #         logging.error(traceback.format_exc())
 
-    def _check_is_wap(self):
-        user_agent = self.request.headers.get('user-agent', '')
-        if user_agent != '' and self.re_user_agent.search(user_agent):
-            self.is_wap = 1
-            if self.re_ios_user_agent.search(user_agent):
-                self.is_ios = True
-
-    def _gen_uv_key_by_uuid(self):
-        return uuid.uuid1().hex
-
-    def _gen_uv_key_by_request(self):
-        key = '{}___{}'.format(self.remote_ip, self.user_agent)
-        key = hashlib.md5(key).hexdigest()
-        return key
-
-    def render(self, page, **kwargs):
-        rnd = str(random.randint(1, 2147483647))
-
-        param_list = {
-            'siteid': self.cnzz_site_id,
-            'r': self.http_referer,
-            'rnd': rnd,
-        }
-        param_lists = urllib.urlencode(param_list)
-        track_page_view = "http://c.cnzz.com/wapstat.php?" + param_lists
-        kwargs['track_page_view'] = track_page_view
-
-        page_param = kwargs.get('page_param', {})
-        # static_host默认是用https://static.heiniubao.com
-        if 'static_host' not in page_param:
-            page_param['static_host'] = 'https://static.heiniubao.com'
-        page_param['timestamp'] = int(time.time())
-        page_param['first_referer'] = self.first_referer
-        super(BasePageHandler, self).render(page, **kwargs)
-
-
-class DefaultErrorHandler(tornado.web.RequestHandler):
-    """Generates an error response with ``status_code`` for all requests."""
-
     def data_received(self, chunk):
         pass
 
+
+class DefaultErrorHandler(BasePageHandler):
+    """Generates an error response with ``status_code`` for all requests."""
     def initialize(self, status_code):
         self.set_status(status_code)
 

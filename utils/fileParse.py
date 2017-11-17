@@ -28,15 +28,6 @@ class IniType(object):
         return info
 
 
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     print id(IniType().parser)
     print id(IniType().parser)

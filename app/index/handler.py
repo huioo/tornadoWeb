@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import tornado.web
+from app.base import BasePageHandler
 
 
-class IndexPageHandler(tornado.web.RequestHandler):
+class IndexPageHandler(BasePageHandler):
     def initialize(self):
         super(IndexPageHandler, self).initialize()
         self.is_wap = 0
