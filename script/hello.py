@@ -2,20 +2,18 @@
 # -*- coding: utf-8 -*-
 
 
-class SessionManager(object):
-    """
-    Session manager class, used to manage the various session objects and talk with Redis.
-    """
+class A(object):
+    a = 0
+    @classmethod
+    def aa(cls):
+        print cls.a
+        print A.a
+class B(A):
+    pass
+class C(A):
+    pass
 
-    @staticmethod
-    def instance():
-        if not hasattr(SessionManager, "_instance"):
-            # New instance
-            SessionManager._instance = SessionManager()
-        return SessionManager._instance
-
-a = SessionManager.instance()
-b = SessionManager.instance()
-
-print id(a)
-print id(b)
+B.a = 1
+C.a = 1
+B.aa()
+C.aa()

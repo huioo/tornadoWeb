@@ -5,11 +5,11 @@
 """
 
 
-def singleton(cls, *args, **kw):
-    """ 单例模式装饰器方法 """
+def singleton(cls):
+    """ 类（class） 的单例模式装饰器（decorator）方法 """
     instances = {}
 
-    def _singleton():
+    def _singleton(*args, **kw):
         if cls not in instances:
             instances[cls] = cls(*args, **kw)
         return instances[cls]

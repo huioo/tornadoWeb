@@ -39,6 +39,50 @@ def main():
     global APPLICATION
     global HTTP_SERVER
 
+    def sig_handler(sig, frame):
+        tornado.ioloop.IOLoop.instance().add_callback(shutdown)
+
+    def shutdown():
+        """ 使 Tornado 在退出前先停止接收新请求（由 nginx 分发到其他端口），再尝试处理未完成的回调，最后才退出"""
+        global APPLICATION
+        global HTTP_SERVER
+        # 不接收新的 HTTP 请求
+        HTTP_SERVER.stop()
+
+        io_loop = tornado.ioloop.IOLoop.instance()
+
+        deadline = time.time() + 5  # 5 为关闭之前等待处理未完成请求的最大时间
+
+        def stop_loop():
+            now = time.time()
+            if now < deadline and (io_loop._callbacks or io_loop._timeouts):
+                io_loop.add_timeout(now + 1, stop_loop)
+            else:
+                # 处理完现有的 callback 和 timeout 后，可以跳出 io_loop.start() 里的循环
+                io_loop.stop()
+
+        stop_loop()
+        APPLICATION.destroy()
+
+    def app_log_add_handler():
+        if tornado.options.options.log_file_prefix:
+            file_path = tornado.options.options.log_file_prefix
+            file_path = '{}_error.log'.format(file_path)
+            log_handler = logging.handlers.TimedRotatingFileHandler(
+                filename=file_path,
+                when='midnight',
+                interval=1,
+                backupCount=10
+            )
+            log_handler.setFormatter(tornado.log.LogFormatter(color=False))
+            tornado.log.app_log.setLevel('INFO')
+            tornado.log.app_log.addHandler(log_handler)
+        if tornado.options.options.unit_test == 1:
+            tornado.log.app_log.root.setLevel('DEBUG')
+            tornado.log.app_log.setLevel('DEBUG')
+            tornado.log.gen_log.setLevel('DEBUG')
+            tornado.log.access_log.setLevel('DEBUG')
+
     # 1.读取命令行参数
     tornado.options.parse_command_line()
     # 2.创建 tornado 应用处理类 Application
@@ -57,53 +101,6 @@ def main():
     logging.info("Tornado's IOLoop Instance Starting")
     # 6.IOLoop对象管理 HTTP 请求
     tornado.ioloop.IOLoop.instance().start()
-
-
-def shutdown():
-    """ 使 Tornado 在退出前先停止接收新请求（由 nginx 分发到其他端口），再尝试处理未完成的回调，最后才退出"""
-    global APPLICATION
-    global HTTP_SERVER
-    # 不接收新的 HTTP 请求
-    HTTP_SERVER.stop()
-
-    io_loop = tornado.ioloop.IOLoop.instance()
-
-    deadline = time.time() + 5  # 5 为关闭之前等待处理未完成请求的最大时间
-
-    def stop_loop():
-        now = time.time()
-        if now < deadline and (io_loop._callbacks or io_loop._timeouts):
-            io_loop.add_timeout(now + 1, stop_loop)
-        else:
-            # 处理完现有的 callback 和 timeout 后，可以跳出 io_loop.start() 里的循环
-            io_loop.stop()
-
-    stop_loop()
-    APPLICATION.destroy()
-
-
-def sig_handler(sig, frame):
-    tornado.ioloop.IOLoop.instance().add_callback(shutdown)
-
-
-def app_log_add_handler():
-    if tornado.options.options.log_file_prefix:
-        file_path = tornado.options.options.log_file_prefix
-        file_path = '{}_error.log'.format(file_path)
-        log_handler = logging.handlers.TimedRotatingFileHandler(
-            filename=file_path,
-            when='midnight',
-            interval=1,
-            backupCount=10
-        )
-        log_handler.setFormatter(tornado.log.LogFormatter(color=False))
-        tornado.log.app_log.setLevel('INFO')
-        tornado.log.app_log.addHandler(log_handler)
-    if tornado.options.options.unit_test == 1:
-        tornado.log.app_log.root.setLevel('DEBUG')
-        tornado.log.app_log.setLevel('DEBUG')
-        tornado.log.gen_log.setLevel('DEBUG')
-        tornado.log.access_log.setLevel('DEBUG')
 
 
 if __name__ == "__main__":

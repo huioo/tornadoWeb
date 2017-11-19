@@ -16,9 +16,9 @@ class BasePageHandler(tornado.web.RequestHandler):
         super(BasePageHandler, self).initialize()
         self.is_wap = 0
         self.is_ios = False
-        self.re_user_agent = re.compile(r'(iPhone|iPod|Android|ios|iPad)')
-        self.re_ios_user_agent = re.compile(r'(iPhone|iPod|ios|iPad)')
-        self._check_is_wap()
+        # self.re_user_agent = re.compile(r'(iPhone|iPod|Android|ios|iPad)')
+        # self.re_ios_user_agent = re.compile(r'(iPhone|iPod|ios|iPad)')
+        # self._check_is_wap()
         # self.http_referer = self.request.headers.get('Referer', '')
         # self.cnzz_site_id = 1257406960
         #

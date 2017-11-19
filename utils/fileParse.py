@@ -2,10 +2,7 @@
 # -*- coding: utf-8 -*-
 import ConfigParser
 
-from schema import singleton
 
-
-@singleton
 class IniType(object):
     """ ini、cfg、cong 等类型文件解析类，文件内容格式为 [section] 和 option 键值对"""
     def __init__(self, filename=[]):
@@ -24,13 +21,13 @@ class IniType(object):
                 r = {}
                 for option, value in self.parser.items(section):  # [(o1,v1),(o2,v2),...]
                     r[option] = value
-                self.info[section] = r
+                info[section] = r
         return info
 
 
 if __name__ == '__main__':
-    print id(IniType().parser)
-    print id(IniType().parser)
+    a = IniType(filename=['../conf/config.ini', '../conf/configs.ini'])
+    print a.info
 
 
 
