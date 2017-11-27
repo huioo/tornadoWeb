@@ -12,34 +12,43 @@ import tornado.web
 
 
 class BasePageHandler(tornado.web.RequestHandler):
+    def __init__(self, application, request, **kwargs):
+        self.page_intro = {}
+        self.header = {}
+        self.body = {}
+        self.footer = {}
+        self.params = {}
+        self.template = 'base.html'
+
+        super(BasePageHandler, self).__init__(application, request, **kwargs)
+
     def initialize(self):
         super(BasePageHandler, self).initialize()
-        self.is_wap = 0
-        self.is_ios = False
-        # self.re_user_agent = re.compile(r'(iPhone|iPod|Android|ios|iPad)')
-        # self.re_ios_user_agent = re.compile(r'(iPhone|iPod|ios|iPad)')
-        # self._check_is_wap()
-        # self.http_referer = self.request.headers.get('Referer', '')
-        # self.cnzz_site_id = 1257406960
-        #
-        # self.remote_ip = self.request.remote_ip
-        # self.uri = self.request.uri
-        # self.user_agent = self.request.headers.get('user-agent', '')
-        #
-        # self.hn_uv_key = self.get_cookie(USER_SIGN_COOKIE_NAME)
-        # if not self.hn_uv_key:
-        #     self.hn_uv_key = self._gen_uv_key_by_uuid()
-        #     self.set_cookie(USER_SIGN_COOKIE_NAME, self.hn_uv_key, expires_days=365, httponly=True)
-        # self.first_referer = self.get_cookie(FIRST_REFERER_COOKIE_NAME, '')
-        # if not self.first_referer:
-        #     if self.http_referer:
-        #         self.first_referer = self.http_referer
-        #     else:
-        #         self.first_referer = self.request.path
-        #     try:
-        #         self.set_cookie(FIRST_REFERER_COOKIE_NAME, self.first_referer, expires_days=1, httponly=True)
-        #     except:
-        #         logging.error(traceback.format_exc())
+        self._gen_page_title()
+        self._gen_page_description()
+        self._gen_page_keywords()
+
+    def render_page(self):
+        self._integrate_parameters()
+        self.render(self.template, **self.params)
+
+# functions for initiating all pages' introduce
+    def _gen_page_title(self):
+        self.page_intro['title'] = 'huioo'
+
+    def _gen_page_description(self):
+        self.page_intro['description'] = 'huioo@850628572'
+
+    def _gen_page_keywords(self):
+        self.page_intro['keywords'] = 'huioo'
+
+# before render , integrate all parameters what need to be used
+    def _integrate_parameters(self):
+        """ 整合self.params变量 """
+        self.params['page_intro'] = self.page_intro
+        self.params['header'] = self.header
+        self.params['body'] = self.body
+        self.params['footer'] = self.footer
 
     def data_received(self, chunk):
         pass

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="{{ page_intro['keywords'] }}">
+    <meta name="description" content="{{ page_intro['description'] }}">
+    <title>{{ page_intro['title'] }}</title>
+</head>
+<body>
+<div id="header">
+    {% block header %}
+    {% end %}
+</div>
+
+<div id="body">
+    {% block body %}
+    {% end %}
+</div>
+
+<div id="footer">
+    {% block footer %}
+    {% end %}
+</div>
+</body>
+</html>

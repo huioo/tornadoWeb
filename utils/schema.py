@@ -5,7 +5,7 @@
 """
 
 
-def singleton(cls):
+def singleton(cls, *s_args, **s_kw):
     """ 类（class） 的单例模式装饰器（decorator）方法 """
     instances = {}
 

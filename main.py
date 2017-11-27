@@ -91,7 +91,7 @@ def main():
     HTTP_SERVER = tornado.httpserver.HTTPServer(APPLICATION, xheaders=True)
     # 4.监听指定端口 port
     HTTP_SERVER.listen(tornado.options.options.port)
-    # 捕捉 TERM 和 INT 信号，使 Tornado 在退出前先停止接收新请求（由 nginx 分发到其他端口），再尝试处理未完成的回调，最后才退出
+    # 捕捉TERM和INT信号，使Tornado在退出前先停止接收新请求（由nginx分发到其他端口），再尝试处理未完成的回调，最后才退出
     signal.signal(signal.SIGTERM, sig_handler)
     signal.signal(signal.SIGINT, sig_handler)
 

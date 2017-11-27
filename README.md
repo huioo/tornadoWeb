@@ -4,9 +4,7 @@ Created At 2017.11.06
 
 **step3：**  
 project entrance：项目入口；main.py  
-index app：首页模块；app/index  
-base：功能基础模块；app/base.py  
-ini file parse：ini文件解析；utils/parser/ini.py
+编写apps功能项目和HTML模板，项目开发
 
 **step2：项目结构**
 webapp/                  <-- 根目录  

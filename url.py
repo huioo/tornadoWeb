@@ -3,7 +3,8 @@
 import os
 import tornado.web
 
-import config
+import common
+from app.handler_map import HANDLERS
 from app.index.handler import IndexPageHandler
 
 
@@ -22,6 +23,7 @@ class Application(tornado.web.Application):
             login_url="/login",
         )
         tornado.web.Application.__init__(self, handlers, **settings)
+        self.add_handlers(r'.*', HANDLERS)
         self.shutdown_listener = []
 
     def destroy(self):

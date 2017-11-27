@@ -2,18 +2,12 @@
 # -*- coding: utf-8 -*-
 
 
-class A(object):
-    a = 0
-    @classmethod
-    def aa(cls):
-        print cls.a
-        print A.a
+class A(dict):
+    def __init__(self, a):
+        self.a = a
 class B(A):
-    pass
-class C(A):
-    pass
+    def __init__(self, b):
+        self.b = b
 
-B.a = 1
-C.a = 1
-B.aa()
-C.aa()
+
+print B(1).a

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import ConfigParser
+from cStringIO import StringIO
 
 
 class IniType(object):
@@ -24,6 +25,24 @@ class IniType(object):
                 info[section] = r
         return info
 
+
+def load_configs(column='config', config_ini_path='config.ini'):
+    _cp = ConfigParser()
+    fp = open(config_ini_path, 'rb')
+    content = fp.read()
+    fp.close()
+    # 替换bom信息
+    content = content.replace('\xef\xbb\xbf', '')
+    fp = StringIO(content)
+    _cp.readfp(fp)
+    return _cp.items(column)
+
+
+def get_config(section, option):
+    config = ConfigParser()
+    with open('config.ini') as f:
+        config.readfp(f)
+        return config.get(section, option)
 
 if __name__ == '__main__':
     a = IniType(filename=['../conf/config.ini', '../conf/configs.ini'])
