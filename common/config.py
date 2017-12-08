@@ -4,6 +4,7 @@ import os
 
 
 from utils.schema import singleton
+from utils.fileParse import IniTypeUtil
 from utils.pathUtils import current_path
 
 
@@ -22,21 +23,20 @@ class ConfigServer(object):
 
     def __gen_config_info(self):
         filenames = self.__gen_config_file_list()
-        from utils.fileParse import IniType
-        return IniType(filename=filenames).info
+        return IniTypeUtil(filename=filenames).info
 
     @staticmethod
     def __gen_config_file_list():
         """ config 文件路径列表 """
         result = []
-        path = os.path.realpath(__file__)
+        path = os.path.dirname(__file__)
         config_dir_path = os.path.join(current_path(path), 'conf')
 
         result.append(os.path.join(config_dir_path, 'config.ini'))
-        # print result
+        print result
         return result
 
 if __name__ == '__main__':
-    print ConfigServer().mydb
+    print ConfigServer().config_info
 
 

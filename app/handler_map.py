@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from week1 import handler as week1
+from app.index import handler as index
+from python import handler as python
 
 HANDLERS = {
-    (r'/week1/first', week1.FirstPageHandler)
+    (r'/python', python.PythonPageHandler),
+    (r'/python/introduce', python.IntroduceHandler),
+    (r'/python/introduce.html', python.IntroduceHandler),
+
 }

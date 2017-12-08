@@ -19,7 +19,9 @@ class BasePageHandler(tornado.web.RequestHandler):
         self.footer = {}
         self.params = {}
         self.template = 'base.html'
-
+        """ 每次访问 结果都不一致，表示不是同一个线程
+        print id(self) 
+        """
         super(BasePageHandler, self).__init__(application, request, **kwargs)
 
     def initialize(self):
@@ -31,6 +33,7 @@ class BasePageHandler(tornado.web.RequestHandler):
     def render_page(self):
         self._integrate_parameters()
         self.render(self.template, **self.params)
+        return
 
 # functions for initiating all pages' introduce
     def _gen_page_title(self):

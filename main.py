@@ -18,7 +18,7 @@ import tornado.options
 # import gear
 # import insurance.init
 import common
-import config
+# import config
 from url import Application
 from app.base import DefaultErrorHandler
 sys.path.append(os.path.dirname(__file__))

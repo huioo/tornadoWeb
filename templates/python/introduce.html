@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="{{ page_intro['keywords'] }}">
+    <meta name="description" content="{{ page_intro['description'] }}">
+    <title>{{ page_intro['title'] }}</title>
+</head>
+<body>
+<div id="header">
+</div>
+
+<div id="body">
+    <p>Python是一种计算机编程语言。</p>
+    <p>计算机编程语言和我们日常使用的自然语言有所不同，最大的区别就是，自然语言在不同的语境下有不同的理解，而计算机要根据编程语言执行任务，就必须保证编程语言写出的程序决不能有歧义，所以，任何一种编程语言都有自己的一套语法，编译器或者
+    解释器就是负责把符合语法的程序代码转换成CPU能够执行的机器码，然后执行。Python也不例外。</p>
+    <p>进入官网<a href="https://www.python.org/">https://www.python.org/</a>下载所需安装文件，并根据安装教程进行安装，也可以自行上网搜索安装教程，本案例中使用python2.7版本。    </p>
+    <hr/>
+    <h2>运行Python</h2>
+    <p>安装完成之后，通过在shell命令中输入python来启动解释器。然而，解释器和Python开发环境存在多种实现（如Jython、IronPython、IDLE等），因此需要参考相应文档中的启动说明。解释器启动后将出现一个提示符，由此可以开始输入程序，进入简单的
+        读入-求值循环。例如，在下面的输出中，解释器显示了版权消息和>>>提示符，用户可以在提示符后输入打印“Hello World”命令：</p>
+    <pre>
+        Python 2.7.13 (v2.7.13:a06454b1afa1, Dec 17 2016, 20:53:40) [MSC v.1500 64 bit (AMD64)] on win32
+        Type "help", "copyright", "credits" or "license" for more information.
+        >>> print 'Hello World'
+        Hello World
+        >>>
+    </pre>
+    <p>如果要创建可以重复运行的程序，可以将语句放到一个文件中，以此重复运行。书写文件时，Python源文件是普通的文本文件，后缀通常是.py。# 字符表示该行直至行尾的内容都是注释。在文件开头添加“# -*- coding: utf-8 -*-”，以此来设置该文件的
+        默认编码为utf-8，防止中文乱码问题。文件书写形式如下：</p>
+    <pre>
+        # -*- coding: utf-8 -*-
+        # helloworld.py
+        print "Hello World"
+    </pre>
+    <p>在Windows中，双击一个.py文件或者在Windows开始菜单的“运行”命令中输入程序名称，均可启动Python程序。这会启动解释器，并在控制台窗口中运行程序。但需要注意的是，在程序运行完成后，控制台窗口会立即消失（通常来不及看清楚输出）。调试
+        程序时，最好是使用像IDLE这样的Python开发工具中运行程序，更多开发工具如Pycharm等。</p>
+    <p>在类似Unix系统中，可以在首行添加“#!/usr/bin/env python”。</p>
+    <hr/>
+    <h2>字符串</h2>
+
+
+    <hr/>
+    <h2>变量和算数表达式</h2>
+    <pre>
+        # 简单的复利计算
+        principal = 1000            # 初始金额
+        rate = 0.05                 # 利率
+        num_years = 5                # 年数
+        year = 1
+        while year <= num_years:
+            principal = principal * (1 + rate)
+            year += 1
+        print '本息总金额：', principal   # Python3使用不同print方法
+    </pre>
+    <p>此程序的输出结果为“本息总金额：1276.2815625”。</p>
+    <p>Python是一种动态类型的语言，程序运行过程中，变量名称会被绑定到不同的值，而且这些值可以术语不同的类型，即变量名称是无类型的。赋值运算符的作用仅仅是在名称和值之间创建一种关联。例如，语句“principal = principal * (1 + rate)”中把
+        名称principal重新与结果关联。principal的原始值是整数类型的1000，但现在的新值时浮点数（rate为浮点数，则上述表达式的值也是浮点数）。principal类型看上去从“integer”动态变为了“float”，但准确地说，不是principal的类型变了，而是
+        principal名称引用的值的类型变了。</p>
+    <hr/>
+    <h2>语法</h2>
+    <hr/>
+    <h2>语法</h2>
+    <hr/>
+    <h2>条件语句</h2>
+
+
+    <ol>
+        <li>行结构和缩进</li>
+        <li>标识符和保留字</li>
+        <li>数字字面量</li>
+        <li>字符串字面量</li>
+        <li>容器</li>
+        <li>运算符、分隔符及特殊符号</li>
+        <li>文档字符串</li>
+        <li>装饰器</li>
+        <li>源代码编码</li>
+    </ol>
+    <pre>
+        hudiohahdu
+        sdhaohoad
+        nsdaho
+    </pre>
+
+</div>
+
+<div id="footer">
+</div>
+</body>
+</html>

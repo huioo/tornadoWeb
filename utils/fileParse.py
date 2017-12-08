@@ -4,7 +4,7 @@ import ConfigParser
 from cStringIO import StringIO
 
 
-class IniType(object):
+class IniTypeUtil(object):
     """ ini、cfg、cong 等类型文件解析类，文件内容格式为 [section] 和 option 键值对"""
     def __init__(self, filename=[]):
         self.parser = ConfigParser.ConfigParser()
@@ -45,7 +45,7 @@ def get_config(section, option):
         return config.get(section, option)
 
 if __name__ == '__main__':
-    a = IniType(filename=['../conf/config.ini', '../conf/configs.ini'])
+    a = IniTypeUtil(filename=['../conf/config.ini', '../conf/configs.ini'])
     print a.info
 
 

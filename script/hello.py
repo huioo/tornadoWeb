@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 
 class A(dict):
@@ -10,4 +11,4 @@ class B(A):
         self.b = b
 
 
-print B(1).a
+print B(1).b
