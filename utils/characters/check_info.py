@@ -27,31 +27,31 @@ def check_name(name):
         name = name.decode('utf8')
     except:
         return False
-    if NAME_REGEX.match(name) == None:
+    if NAME_REGEX.match(name) is None:
         return False
     return True
 
 
 def check_phone(phone):
-    if PHONE_REGEX.match(phone) == None:
+    if PHONE_REGEX.match(phone) is None:
         return False
     return True
 
 
 def check_idno(idno):
-    if IDNO_REGEX.match(idno) == None:
+    if IDNO_REGEX.match(idno) is None:
         return False
     return True
 
 
 def check_birthday(birthday):
-    if BIRTH_DAY.match(birthday) == None:
+    if BIRTH_DAY.match(birthday) is None:
         return False
     return True
 
 
 def check_sex(sex):
-    if SEX.match(sex) == None:
+    if SEX.match(sex) is None:
         return False
     return True
 

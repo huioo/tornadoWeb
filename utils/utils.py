@@ -10,51 +10,10 @@ import datetime
 import logging
 import urllib
 import hashlib
-import smtplib
-from email.mime.text import MIMEText
 
 import db_interface
 
 
-if type('') is not type(b''):
-    bytes_type = bytes
-    unicode_type = str
-    basestring_type = str
-else:
-    bytes_type = str
-    unicode_type = unicode
-    basestring_type = basestring
-
-_UTF8_TYPES = (bytes_type, type(None))
-_TO_UNICODE_TYPES = (unicode_type, type(None))
-
-
-def utf8(text):
-    """
-        Converts a string argument to a byte string.
-
-        If the argument is already a byte string or None, it is returned unchanged.
-        Otherwise it must be a unicode string and is encoded as utf8.
-    """
-    if isinstance(text, _UTF8_TYPES):
-        return text
-    assert isinstance(text, unicode_type), \
-        "Expected bytes, unicode, or None; got %r" % type(text)
-    return text.encode("utf-8")
-
-
-def to_unicode(text):
-    """
-        Converts a string argument to a unicode string.
-
-        If the argument is already a unicode string or None, it is returned
-        unchanged.  Otherwise it must be a byte string and is decoded as utf8.
-    """
-    if isinstance(text, _TO_UNICODE_TYPES):
-        return text
-    assert isinstance(text, bytes_type), \
-        "Expected bytes, unicode, or None; got %r" % type(text)
-    return text.decode("utf-8", 'ignore')
 
 
 def is_employee_phone(phone):
@@ -103,13 +62,6 @@ def fill_zero(data, max_length=10):
 
 def replace_html_tag(content):
     return re.sub('<[^>]*?>', '', content)
-
-
-def remove_emoj(text):
-    text = to_unicode(text)
-    re_pattern = re.compile(u'[^\u0000-\uD7FF\uE000-\uFFFF]', re.UNICODE)
-    filtered_string = re_pattern.sub(u'', text)
-    return filtered_string
 
 
 def url_encode_dict(target_dict):
@@ -175,74 +127,6 @@ class JsonEncoder(json.JSONEncoder):
         if isinstance(obj, set):
             return list(obj)
         return super(JsonEncoder, self).default(obj)
-
-
-def mask_name(raw_name):
-    """
-    给名字打"*"
-    :param raw_name:
-    :return:
-    """
-    if not raw_name:
-        return ''
-
-    name = raw_name[0] + '*' * (len(raw_name) - 1)
-    return name
-
-
-def mask_phone(raw_phone):
-    """
-    给名字打"*"
-    :param raw_phone:
-    :return:
-    """
-    if not raw_phone:
-        return ''
-    try:
-        length = len(raw_phone)
-        raw_phone = raw_phone[0:3] + '*' * (len(raw_phone) - 7) + raw_phone[length - 4:length]
-        return raw_phone
-    except Exception, e:
-        logging.error(e)
-        return raw_phone
-
-
-def mask_id_no(raw_id_no):
-    """
-    给名字打"*"
-    :param raw_id_no:
-    :return:
-    """
-    if not raw_id_no:
-        return ''
-    try:
-        length = len(raw_id_no)
-        raw_id_no = raw_id_no[0:3] + '*' * (length - 7) + raw_id_no[length - 4:length]
-        return raw_id_no
-    except Exception, e:
-        logging.error(e)
-        return raw_id_no
-
-
-def send_email(receiver, title, body):
-    host = 'smtp.mxhichina.com'
-    sender = 'report@heiniubao.com'
-    pwd = 'Heiniu1003'
-    msg = MIMEText(body, 'html', 'utf-8')
-    msg['subject'] = title
-    msg['from'] = sender
-    if isinstance(receiver, list):
-        msg['to'] = ",".join(receiver)
-        # print msg
-    else:
-        msg['to'] = receiver
-        # print msg
-    s = smtplib.SMTP(host, port=80)
-    # s.starttls()
-    s.login(sender, pwd)
-    s.sendmail(sender, receiver, msg.as_string())
-    s.quit()
-    s.close()
 
 
 def add_extension_url_arg(url, name, value):
