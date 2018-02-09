@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 import time
 import math
+import logging
 
 from datetime import datetime, timedelta
 
 
-class CurrentTimeString(object):
+class CurrentTimeStringUtils(object):
     """ 当前时间的各种形式获取方法 """
     @classmethod
     def microtime(cls, get_as_float=False):
@@ -42,5 +43,25 @@ class CurrentTimeString(object):
         return result
 
 
+class DateConvertedUtils(object):
+    @classmethod
+    def get_age(cls, birth):
+        age = 0
+        try:
+            date_time = datetime.strptime(birth, '%Y-%m-%d')
+            current_time = datetime.now()
+            age = current_time.year - date_time.year
+            if current_time.month < date_time.month:
+                age -= 1
+            elif current_time.month == date_time.month and current_time.day < date_time.day:
+                age -= 1
+            return age
+        except:
+            import traceback
+            print traceback.format_exc()
+            logging.info('birth:%s type is not valid' % birth)
+            return age
+
+
 if __name__ == '__main__':
-    print CurrentTimeString.date_str(days=-1)
+    print DateConvertedUtils.get_age(birth="1948-09-29")

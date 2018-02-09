@@ -11,4 +11,6 @@ class B(A):
         self.b = b
 
 
-print B(1).b
+# print B(1).b
+import os
+print os.path.dirname(__file__)

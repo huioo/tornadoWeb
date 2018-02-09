@@ -2,7 +2,7 @@
 import tornado.httpclient
 import tornado.gen
 import datetime
-import logging
+import logger
 
 
 
@@ -27,13 +27,13 @@ def async_http_fetch(url, timeout=5, post_body=None, method='GET', headers=None,
         http_response = yield http_client.fetch(http_request)
         response = http_response.body
     except Exception as e:
-        logging.error(e)
+        logger.error(e)
     finally:
         cost_time = (datetime.datetime.now() - begin_time).total_seconds()
         if http_response and 'Content-Type' in http_response.headers and http_response.headers['Content-Type'] == 'image/png':
-            logging.info('{}####{}####{}'.format(url, post_body, cost_time))
+            logger.info('{}####{}####{}'.format(url, post_body, cost_time))
         else:
-            logging.info('{}####{}####{}####{}'.format(url, post_body, response, cost_time))
+            logger.info('{}####{}####{}####{}'.format(url, post_body, response, cost_time))
 
 
     raise tornado.gen.Return(response)
@@ -59,13 +59,13 @@ def async_http_fetch_response(url, timeout=5, post_body=None, method='GET', head
         http_response = yield http_client.fetch(http_request)
         response_body = http_response.body
     except Exception as e:
-        logging.error(e)
+        logger.error(e)
     finally:
         cost_time = (datetime.datetime.now() - begin_time).total_seconds()
         if http_response and 'Content-Type' in http_response.headers and http_response.headers['Content-Type'] == 'image/png':
-            logging.info('{}####{}####{}'.format(url, post_body, cost_time))
+            logger.info('{}####{}####{}'.format(url, post_body, cost_time))
         else:
-            logging.info('{}####{}####{}####{}'.format(url, post_body, response_body, cost_time))
+            logger.info('{}####{}####{}####{}'.format(url, post_body, response_body, cost_time))
 
 
     raise tornado.gen.Return(http_response)

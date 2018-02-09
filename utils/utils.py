@@ -7,7 +7,7 @@ import json
 import socket
 import struct
 import datetime
-import logging
+import logger
 import urllib
 import hashlib
 
