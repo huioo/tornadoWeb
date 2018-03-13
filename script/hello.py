@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+# from __future__ import unicode_literals
 
 
 class A(dict):
@@ -13,4 +13,8 @@ class B(A):
 
 # print B(1).b
 import os
-print os.path.dirname(__file__)
+# print os.path.dirname(__file__)
+import re
+p = re.compile(r"industr(?:y|ies)")
+r = p.findall("industry|industries|industr|industraaaa")
+print r

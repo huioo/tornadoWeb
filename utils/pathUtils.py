@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import os
 
+from functools import partial
+
 # 分离路径，返回文件名:'/usr/path/s.txt' ==> 's.txt'
 filename = lambda path: os.path.basename(path)
 
@@ -23,6 +25,11 @@ dirs = lambda path: [file for file in all_files(path) if os.path.isdir(file)]
 #   3)os.path.realpath(__file__);  同上
 # os.path.split(path)       分离目录、文件名：('D:/tornadoWeb/utils', 'pathUtils.py')
 # os.path.splitext(path)    分离路径名、扩展名；('D:/tornadoWeb/utils/pathUtils', '.py')
+
+
+HERE = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER = 'permdir'
+get_file_path = partial(os.path.join, HERE, UPLOAD_FOLDER)  # 绑定前2个传参
 
 if __name__ == '__main__':
     path = os.path.realpath(__file__)

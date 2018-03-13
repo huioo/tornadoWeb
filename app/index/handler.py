@@ -82,3 +82,12 @@ class PythonStudyIndexPageHandler(BasePageHandler):
 
         self.render_page()
 
+
+class IndexTestPageHandler(BasePageHandler):
+    def initialize(self):
+        super(IndexTestPageHandler, self).initialize()
+        self.template = 'demo/checked.html'
+
+    def get(self, *args, **kwargs):
+        # self.body['is_checked'] = ''
+        self.render_page()

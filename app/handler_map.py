@@ -8,4 +8,6 @@ HANDLERS = {
     (r'/python/introduce', python.IntroduceHandler),
     (r'/python/introduce.html', python.IntroduceHandler),
 
+    # 实验
+    (r'/test', index.IndexTestPageHandler),
 }

@@ -5,13 +5,13 @@ import MySQLdb
 import torndb
 import threading
 
-from common.config import ConfigServer
 from utils.schema import singleton
+
+from common.constants import CONFIG_INFO
 
 
 class __DataBaseBase(object):
     def __init__(self):
-        self.configs = ConfigServer()
         self.dbs = {}
 
     def gen_mysql_link(self, a):
@@ -31,11 +31,10 @@ class __DataBaseBase(object):
 @singleton
 class TorndbImpl(object):
     def __init__(self):
-        self.configs = ConfigServer()
         self.mydb = self.connect_mydb()
 
     def connect_mydb(self):
-        conf = self.configs.mydb
+        conf = CONFIG_INFO.mydb
         # 建立和数据库系统的连接
         con = torndb.Connection(
             database=conf['db'],
@@ -59,11 +58,10 @@ class TorndbImpl(object):
 @singleton
 class MySQLdbImpl(object):
     def __init__(self):
-        self.configs = ConfigServer()
         self.mydb = self.connect_mydb()
 
     def connect_mydb(self):
-        conf = self.configs.mydb
+        conf = CONFIG_INFO.mydb
         # 建立和数据库系统的连接
         con = MySQLdb.connect(
             db=conf['db'],
@@ -135,15 +133,20 @@ def __mysqldb_example():
 
 def __torndb_example():
     mydb = TorndbImpl().mydb
-    mydb.execute('create table blog(id int,content text)')
+    mydb.execute('create table IF NOT EXISTS blog (id int,content text)')
     content = 'wawuee'
-    mydb.execute('insert into blog(id,content) values (%d,"%s")' % (1, content))        # return 0 （成功）
-    mydb.insert("INSERT INTO blog (id,content) VALUES (%s,%s)", 2, "aaa")               # return 0 （成功）
-    mydb.insertmany("INSERT INTO blog (id,content) VALUES (%s,%s)", [[3, 'bbb'], [4, 'ccc']])   # return 0 （成功）
+    # mydb.execute('insert into blog(id,content) values (%d,"%s")' % (1, content))        # return 0 （成功）
+    # mydb.insert("INSERT INTO blog (id,content) VALUES (%s,%s)", 2, "aaa")               # return 0 （成功）
+    # mydb.insertmany("INSERT INTO blog (id,content) VALUES (%s,%s)", [[3, 'bbb'], [4, 'ccc']])   # return 0 （成功）
     # execute包括创建表，插入表，删除表等等，另外其也单独封装了insert、insertmany、update、updatemany函数，同时除了一般的
     # execute函数，其还有execute_lastrowid、execute_rowcount、executemany、executemany_lastrowid、executemany_rowcount函数。
     print mydb.query('SELECT * FROM blog')
     # [{'content': u'wawuee', 'id': 1L}, {'content': u'aaa', 'id': 2L}, ...]
+    result = mydb.iter('SELECT * FROM blog')
+    for i in result:
+        print i # Row 对象
+    # print mydb.iter('SELECT * FROM blog')
+
 
 if __name__ == '__main__':
     con = TorndbImpl().mydb

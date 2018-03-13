@@ -92,7 +92,7 @@ def main():
     average_visit_duration_url = [
         (url, VISIT_URL_DURATION[url] / VISIT_URL_TIMES[url]) for url in VISIT_URL_TIMES.iterkeys()
     ]
-    # 各url平均访问时长
+    # 各url平均访问时长，所有情况（包括<>=delay的url）
     average_visit_duration_url.sort(key=lambda x: x[1], reverse=True)
     print "平均访问时长 ", SUM_VISIT['time'] / SUM_VISIT['sum']
     print "-" * 100
@@ -100,9 +100,11 @@ def main():
     print "平均访问时长前20的url及duration情况："
     print '\n'.join(["{} ### 平均访问：次数{}，时长:{}".format(item[0], VISIT_URL_TIMES[item[0]], item[1]) for item in average_visit_duration_url[:20]])
     print "-" * 100
+    # 访问次数前20个url的访问次数情况
     print "超过{}s的访问链接：".format(delay)
     print '\n'.join(["{} ## 访问次数:{}".format(*item) for item in VISIT_LONG_URL_COUNT.most_common()][:20])
     print "-" * 100
+    #
     print '访问超过{}s的访问url及前10个超过{}s的duration：'.format(delay, delay*2)
     print '\n'.join(
         [pattern_format_sting('{} ## 访问时长:\n   {}', '   {}', lambda x: x is 0, i, k, duration)
