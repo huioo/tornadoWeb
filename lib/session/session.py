@@ -89,6 +89,7 @@ class SessionManager(object):
         self.__change_session(change)
 
     def get(self, name, default=None):
+        # type: (object, object) -> object
         '''
         Gets the object for "name", or None if there's no such object. If
         "default" is provided, return it if no object is found.

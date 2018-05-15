@@ -15,6 +15,7 @@ class NotificationManager(SessionManager):
     STORAGE_CATEGORY = 'db_notifications'
 
     def get(self, name, default=None):
+        # type: (object, object) -> object
         '''
         Retrieves the object with "name", like with SessionManager.get(), but
         removes the object from the database after retrieval, so that it can be

@@ -3,6 +3,7 @@
 import sqlite3
 import MySQLdb
 import torndb
+import redis
 import threading
 
 from utils.schema import singleton
@@ -10,7 +11,7 @@ from utils.schema import singleton
 from common.constants import CONFIG_INFO
 
 
-class __DataBaseBase(object):
+class Base(object):
     def __init__(self):
         self.dbs = {}
 
@@ -28,8 +29,17 @@ class __DataBaseBase(object):
         self.dbs.update(name=con)
 
 
-@singleton
-class TorndbImpl(object):
+class RedisImpl(Base):
+    def __init__(self):
+        pass
+
+    def connection(self):
+        conn = redis.StrictRedis(host='localhost', port=6379,
+                 db=0, password=None)
+        return conn
+
+
+class TorndbImpl(Base):
     def __init__(self):
         self.mydb = self.connect_mydb()
 
@@ -55,8 +65,7 @@ class TorndbImpl(object):
         return all_rows
 
 
-@singleton
-class MySQLdbImpl(object):
+class MySQLdbImpl(Base):
     def __init__(self):
         self.mydb = self.connect_mydb()
 

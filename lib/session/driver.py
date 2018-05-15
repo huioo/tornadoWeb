@@ -25,6 +25,7 @@ class Driver(object):
             self._create_client()
 
     def get(self, session_id):
+        # type: (object) -> object
         self._setup_client()
         raw_session = self.client.get(session_id)
         if raw_session:

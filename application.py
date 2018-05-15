@@ -15,8 +15,10 @@ class Application(tornado.web.Application):
         ]
         # config_instance = config.ConfigServer.instance()
         settings = dict(
-            template_path=os.path.join(os.path.dirname(__file__), "templates"),
-            static_path=os.path.join(os.path.dirname(__file__), "static"),
+            # template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            # static_path=os.path.join(os.path.dirname(__file__), "static"),
+            template_path=os.path.join(os.path.dirname(__file__), "app"),
+            static_path=os.path.join(os.path.dirname(__file__), "app"),
             # debug=False,
             debug=True,
             xsrf_cookies=False,

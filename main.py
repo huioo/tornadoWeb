@@ -19,7 +19,7 @@ import tornado.options
 # import insurance.init
 import common
 # import config
-from url import Application
+from application import Application
 from app.base import DefaultErrorHandler
 sys.path.append(os.path.dirname(__file__))
 reload(sys)

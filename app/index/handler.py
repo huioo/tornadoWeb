@@ -2,26 +2,28 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from app.base import BasePageHandler
+from app.base import PageBaseHandler
 
 from utils.db import DataBasebUtil
 
 
-class IndexPageHandler(BasePageHandler):
+class IndexPageHandler(PageBaseHandler):
     def initialize(self):
         super(IndexPageHandler, self).initialize()
 
     def get(self, *args, **kwargs):
+        # type: (object, object) -> object
         print self.get_argument('a', '')
         self.write('hello world!')
 
 
-class PythonStudyIndexPageHandler(BasePageHandler):
+class PythonStudyIndexPageHandler(PageBaseHandler):
     def initialize(self):
         super(PythonStudyIndexPageHandler, self).initialize()
-        self.template = 'index/python.html'
+        self.template = 'index/templates/python.html'
 
     def get(self, *args, **kwargs):
+        # type: (object, object) -> object
         # 标题
         self.body['title'] = 'learning python'.title()
         # 简介
@@ -83,11 +85,12 @@ class PythonStudyIndexPageHandler(BasePageHandler):
         self.render_page()
 
 
-class IndexTestPageHandler(BasePageHandler):
+class IndexTestPageHandler(PageBaseHandler):
     def initialize(self):
         super(IndexTestPageHandler, self).initialize()
         self.template = 'demo/checked.html'
 
     def get(self, *args, **kwargs):
+        # type: (object, object) -> object
         # self.body['is_checked'] = ''
         self.render_page()
