@@ -16,6 +16,30 @@ class IndexPageHandler(PageBaseHandler):
         print self.get_argument('a', '')
         self.write('hello world!')
 
+        """ 导出 Django """
+        # begin_date = request.GET['begin_date']
+        # end_date = request.GET['end_date']
+        # username = request.session['username']
+        #
+        # today = datetime.date.today().strftime('%Y/%m/%d')
+        # names, data = _get_sales_info(begin_date, end_date, models.SalesDaily, username)
+        # filename = '推广数据日报-{}.csv'.format(today)
+        #
+        # response = HttpResponse(content_type='text/csv')
+        # response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
+        #
+        # # 防止csv中文乱码
+        # response.write(codecs.BOM_UTF8)
+        #
+        # writer = csv.writer(response)
+        # names.insert(0, u'日期')
+        # writer.writerow(names)
+        # for each_day_data in data:
+        #     row = [each_day_data['date']] + each_day_data['info']
+        #     writer.writerow(row)
+        #
+        # return response
+
 
 class PythonStudyIndexPageHandler(PageBaseHandler):
     def initialize(self):
